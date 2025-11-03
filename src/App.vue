@@ -14,7 +14,7 @@ export default {
   <h1>To-Do List</h1>
   <ul>
     <li>
-      <to-do-item label="My ToDo Item"></to-do-item>
+      <to-do-item label="My ToDo Item" :done="true"></to-do-item>
     </li>
   </ul>
 </div>
