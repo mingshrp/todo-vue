@@ -12,9 +12,6 @@
 </template>
 
 <script>
-export default {};
-</script>
-
 export default {
   methods: {
     onSubmit() {
@@ -31,3 +28,4 @@ export default {
     };
   },
 };
+</script>
