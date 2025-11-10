@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <input type="checkbox" id="id" :checked="isDone" />
-    <label for="id">{{ label }}</label>
+  <div class="custom-checkbox">
+    <input type="checkbox" :id="id" :checked="isDone" class="checkbox" />
+    <label :for="id" class="checkbox-label">{{ label }}</label>
   </div>
 </template>
 
