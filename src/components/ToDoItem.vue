@@ -8,17 +8,16 @@
 <script>
 export default {
     name: "ToDoItem",
-    props: {
-        label: { required: true, type: String },
-        done: { default: false, type: Boolean },
-        
-    },
-    data() {
-        return {
-            isDone: this.done,
-            id: `todo-${crypto.randomUUID()}`,
-         };
-    },
+     props: {
+    label: { required: true, type: String },
+    done: { default: false, type: Boolean },
+    id: { required: true, type: String },
+  },
+  data() {
+    return {
+      isDone: this.done,
+    };
+  },
 };
 
 </script>
