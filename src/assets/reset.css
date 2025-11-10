@@ -1,77 +1,79 @@
-/* reset.css */
-/* RESETS */
+/* 🌸 reset.css — simple pink theme */
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
 *:focus {
-  outline: 3px dashed #228bec;
+  outline: 3px dashed #ff69b4;
+  outline-offset: 3px;
 }
+
 html {
-  font: 62.5% / 1.15 sans-serif;
+  font-size: 62.5%; /* 1rem = 10px */
 }
-h1,
-h2 {
-  margin-bottom: 0;
-}
-ul {
-  list-style: none;
-  padding: 0;
-}
-button {
-  border: none;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  overflow: visible;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  appearance: none;
-}
-button::-moz-focus-inner {
-  border: 0;
-}
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit;
-  font-size: 100%;
-  line-height: 1.15;
-  margin: 0;
-}
-button,
-input {
-  /* 1 */
-  overflow: visible;
-}
-input[type="text"] {
-  border-radius: 0;
-}
+
 body {
-  width: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  color: #4d4d4d;
+  background-color: #ffeef5;
   max-width: 68rem;
   margin: 0 auto;
-  font:
-    1.6rem/1.25 "Helvetica Neue",
-    "Helvetica",
-    "Arial",
-    sans-serif;
-  background-color: whitesmoke;
-  color: #4d4d4d;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
+  padding: 2rem;
 }
-@media screen and (width >= 620px) {
+
+h1,
+h2 {
+  margin-bottom: 0.5em;
+  color: #e75480;
+}
+
+ul {
+  list-style: none;
+}
+
+/* --- Buttons --- */
+button {
+  border: none;
+  background-color: #ff9fcf;
+  color: white;
+  font: inherit;
+  padding: 0.6em 1.2em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover,
+button:focus {
+  background-color: #ff7ab8;
+}
+
+/* --- Inputs --- */
+input[type="text"] {
+  font: inherit;
+  padding: 0.5em;
+  border: 1px solid #ff9fcf;
+  border-radius: 4px;
+  background-color: white;
+  color: #4d4d4d;
+  transition: border-color 0.2s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #e75480;
+  outline: none;
+}
+
+@media (min-width: 620px) {
   body {
     font-size: 1.9rem;
-    line-height: 1.31579;
   }
 }
-/* END RESETS */
+
