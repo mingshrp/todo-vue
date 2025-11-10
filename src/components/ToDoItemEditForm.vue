@@ -1,13 +1,15 @@
 <template>
   <form class="stack-small" @submit.prevent="onSubmit">
     <div>
-      <label class="edit-label">Edit Name for &quot;{{ label }}&quot;</label>
+      <label class="edit-label">Edit Name for "{{ label }}"</label>
       <input
         :id="id"
         type="text"
         autocomplete="off"
-        v-model.lazy.trim="newLabel" />
+        v-model.lazy.trim="newLabel"
+      />
     </div>
+
     <div class="btn-group">
       <button type="button" class="btn" @click="onCancel">
         Cancel
@@ -20,8 +22,10 @@
     </div>
   </form>
 </template>
+
 <script>
 export default {
+  name: "ToDoItemEditForm",
   props: {
     label: {
       type: String,
@@ -49,15 +53,15 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .edit-label {
   font-family: "Arial", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   color: #0b0c0c;
   display: block;
   margin-bottom: 5px;
 }
+
 input {
   display: inline-block;
   margin-top: 0.4rem;
@@ -65,13 +69,30 @@ input {
   min-height: 4.4rem;
   padding: 0.4rem 0.8rem;
   border: 2px solid #565656;
+  border-radius: 4px;
 }
+
 form {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.8rem;
 }
-form > * {
-  flex: 0 0 100%;
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  background-color: #ff9fcf;
+  color: white;
+  border: none;
+  padding: 0.6em 1.2em;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #ff7ab8;
 }
 </style>

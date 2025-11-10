@@ -1,14 +1,16 @@
 <template>
-  <div class="stack-small">
+  <div class="stack-small" v-if="!isEditing">
     <div class="custom-checkbox">
       <input
         type="checkbox"
         class="checkbox"
         :id="id"
         :checked="isDone"
-        @change="$emit('checkbox-changed')" />
+        @change="$emit('checkbox-changed')"
+      />
       <label :for="id" class="checkbox-label">{{ label }}</label>
     </div>
+
     <div class="btn-group">
       <button type="button" class="btn" @click="toggleToItemEditForm">
         Edit <span class="visually-hidden">{{ label }}</span>
@@ -18,132 +20,110 @@
       </button>
     </div>
   </div>
+
+  <to-do-item-edit-form
+    v-else
+    :id="id"
+    :label="label"
+    @item-edited="itemEdited"
+    @edit-cancelled="editCancelled"
+  />
 </template>
 
 <script>
+import ToDoItemEditForm from "./ToDoItemEditForm.vue";
+
 export default {
-    name: "ToDoItem",
-     props: {
-    label: { required: true, type: String },
-    done: { default: false, type: Boolean },
-    id: { required: true, type: String },
+  name: "ToDoItem",
+  components: {
+    ToDoItemEditForm,
+  },
+  props: {
+    label: String,
+    done: Boolean,
+    id: String,
   },
   data() {
     return {
-      isDone: this.done,
+      isEditing: false,
     };
   },
+  computed: {
+    isDone() {
+      return this.done;
+    },
+  },
+  methods: {
+    deleteToDo() {
+      this.$emit("item-deleted");
+    },
+    toggleToItemEditForm() {
+      this.isEditing = true;
+    },
+    itemEdited(newLabel) {
+      this.$emit("item-edited", newLabel);
+      this.isEditing = false;
+    },
+    editCancelled() {
+      this.isEditing = false;
+    },
+  },
 };
-
 </script>
 
 <style scoped>
-.custom-checkbox > .checkbox-label {
-  font-family: "Arial", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: normal;
-  font-size: 1rem;
-  line-height: 1.25;
-  color: #0b0c0c;
-  display: block;
-  margin-bottom: 5px;
+.stack-small {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #ffc8dc;
 }
-.custom-checkbox > .checkbox {
-  font-family: "Arial", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: normal;
-  font-size: 1rem;
-  line-height: 1.25;
-  box-sizing: border-box;
-  width: 100%;
-  height: 2.5rem;
-  margin-top: 0;
-  padding: 5px;
-  border: 2px solid #0b0c0c;
-  border-radius: 0;
-  appearance: none;
-}
-.custom-checkbox > input:focus {
-  outline: 3px dashed #ffdd00;
-  outline-offset: 0;
-  box-shadow: inset 0 0 0 2px;
-}
+
 .custom-checkbox {
-  font-family: "Arial", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  font-weight: normal;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.checkbox {
+  accent-color: #ff7ab8;
+  width: 1.6rem;
+  height: 1.6rem;
+  cursor: pointer;
+}
+
+.checkbox-label {
   font-size: 1.6rem;
-  line-height: 1.25;
-  display: block;
-  position: relative;
-  min-height: 40px;
-  margin-bottom: 10px;
-  padding-left: 40px;
-  clear: left;
+  color: #4d4d4d;
+  user-select: none;
 }
-.custom-checkbox > input[type="checkbox"] {
-  -webkit-font-smoothing: antialiased;
+
+.btn-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  background-color: #ff9fcf;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 6px;
   cursor: pointer;
-  position: absolute;
-  z-index: 1;
-  top: -2px;
-  left: -2px;
-  width: 44px;
-  height: 44px;
-  margin: 0;
-  opacity: 0;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
-.custom-checkbox > .checkbox-label {
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
-  display: inline-block;
-  margin-bottom: 0;
-  padding: 8px 15px 5px;
-  cursor: pointer;
-  touch-action: manipulation;
+
+.btn:hover {
+  background-color: #ff7ab8;
+  transform: scale(1.03);
 }
-.custom-checkbox > label::before {
-  content: "";
-  box-sizing: border-box;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 40px;
-  border: 2px solid currentColor;
-  background: transparent;
+
+.btn__danger {
+  background-color: #ff6b8a;
 }
-.custom-checkbox > input[type="checkbox"]:focus + label::before {
-  border-width: 4px;
-  outline: 3px dashed #228bec;
-}
-.custom-checkbox > label::after {
-  box-sizing: content-box;
-  content: "";
-  position: absolute;
-  top: 11px;
-  left: 9px;
-  width: 18px;
-  height: 7px;
-  transform: rotate(-45deg);
-  border: solid;
-  border-width: 0 0 5px 5px;
-  border-top-color: transparent;
-  opacity: 0;
-  background: transparent;
-}
-.custom-checkbox > input[type="checkbox"]:checked + label::after {
-  opacity: 1;
-}
-@media only screen and (width >= 40rem) {
-  label,
-  input,
-  .custom-checkbox {
-    font-size: 1.9rem;
-    line-height: 1.31579;
-  }
+
+.btn__danger:hover {
+  background-color: #ff4778;
 }
 </style>
